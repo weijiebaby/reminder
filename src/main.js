@@ -2,10 +2,21 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import axios from 'axios'
 import './assets/css/global.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUI)
+Vue.prototype.$http = axios
+axios.defaults.baseURL = 'http://localhost:5001/'
+
+//token添加到请求头
+axios.interceptors.request.use(function (config) {
+  config.headers.Authorization = 'Bearer ' + localStorage.token
+  return config;
+},function (error){
+  return Promise.reject(error);
+})
 
 Vue.config.productionTip = false
 

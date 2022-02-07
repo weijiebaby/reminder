@@ -15,5 +15,7 @@
     padding: 0;
     /* CSS3 盒子模型 */
     box-sizing: border-box;
+    font-family: PingFang SC, Microsoft Yahei, sans-serif;
   }
+
 </style>
