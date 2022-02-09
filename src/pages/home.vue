@@ -2,14 +2,14 @@
   <div class="home">
     <!-- <button @click="btn">测试</button> -->
     <Menu></Menu>
+    <Menutop></Menutop>
     <Backlog></Backlog>
-    <Overview></Overview>
   </div>
 </template>
 
 <script>
 import Menu from '../components/menu.vue'
-import Overview from '../components/overview.vue'
+import Menutop from '../components/menutop.vue'
 import Backlog from '../components/backlog.vue'
 export default {
   data() {
@@ -17,7 +17,7 @@ export default {
   },
   components: {
       Menu,
-      Overview,
+      Menutop,
       Backlog
   },
   methods: {

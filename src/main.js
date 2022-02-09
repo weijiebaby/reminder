@@ -6,6 +6,8 @@ import axios from 'axios'
 import './assets/css/global.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import './assets/icon/iconfont.js'
+import './assets/icon/icon.css'
 Vue.use(ElementUI)
 Vue.prototype.$http = axios
 axios.defaults.baseURL = 'http://localhost:5001/'

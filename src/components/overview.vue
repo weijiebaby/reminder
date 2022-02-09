@@ -1,8 +1,8 @@
 <template>
     <div class="rightItem">
-        <el-input v-model="input" placeholder="请输入内容"></el-input>
-        <p class="myp">概括统计</p>
-        <div class="boxone"></div>
+        <!-- <el-input v-model="input" placeholder="请输入内容"></el-input>
+        <p class="myp">概览</p>
+        <div class="boxone"></div> -->
     </div>
 </template>
 
@@ -11,13 +11,12 @@ export default {}
 </script>
 
 <style scoped>
-.rightItem {
+/* .rightItem {
     margin-top: 30px;
     margin-right: 30px;
     width: 300px;
     height: 72%;
     border-radius: 10px;
-    /* background-color: white; */
     float: right;
 }
 ::v-deep .el-input__inner {
@@ -36,5 +35,5 @@ export default {}
     background-color: white;
     margin-top: 24px;
     border-radius: 10px;
-}
+} */
 </style>
