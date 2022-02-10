@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     async btn() {
-      const { data: res } = await this.$http.post("test/test");
+      const { data: res } = await this.$http.post("backlog/insertbacklog");
       console.log(res);
     },
   },
