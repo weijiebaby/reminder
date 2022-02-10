@@ -36,7 +36,7 @@
         <el-input
           type="textarea"
           placeholder="你想做点什么呢？"
-          v-model="textareathing"
+          v-model="backlogForm.contents"
           maxlength="30"
           show-word-limit
         >
@@ -45,7 +45,7 @@
           <!-- 日期时间选择框 -->
           <div class="block">
             <el-date-picker
-              v-model="thingdate"
+              v-model="backlogForm.datetime"
               type="datetime"
               placeholder="选择日期时间"
             >
@@ -54,7 +54,7 @@
           <!-- 颜色类别选择 -->
           <div class="colorselect" @click="colorbox">
             <svg class="icon" aria-hidden="true">
-              <use :xlink:href="colorvalue"></use>
+              <use :xlink:href="classvalue"></use>
             </svg>
             <span class="selectp">选择分类</span>
             <div class="colorbox" v-show="iscolor">
@@ -81,19 +81,24 @@
 </template>
 
 <script>
+import Qs from "qs"
 import Overview from "../components/overview.vue";
 export default {
   data() {
     return {
       inputsearch: "",
-      textareathing: "",
-      thingdate: "",
+      backlogForm: {
+          contents: "",
+          datetime: "",
+          // 颜色分类 提交颜色类别的id
+          class: "#icon-yuandian",
+      },
+      // 颜色分类的value(默认蓝色)
+      classvalue: "#icon-yuandian",
       // 新建待办弹框
       isnew: false,
       // 颜色分类弹框
       iscolor: false,
-      // 颜色分类的value(默认蓝色)
-      colorvalue: "#icon-yuandian",
       colors: [
         {
           cid: 1,
@@ -123,6 +128,7 @@ export default {
     };
   },
   components: {
+      Qs,
     Overview,
   },
   methods: {
@@ -133,7 +139,8 @@ export default {
     // 颜色分类
     selectcolor(colors) {
       // console.log(colors.cvalue)
-      this.colorvalue = colors.cvalue;
+      this.classvalue = colors.cvalue;
+      this.backlogForm.class = colors.cid;
     },
     // 新建待办弹框
     newItem() {
@@ -142,9 +149,9 @@ export default {
     // 取消
     newItemCancel() {
       if (
-        this.textareathing != "" ||
-        this.thingdate ||
-        this.colorvalue != "#icon-yuandian"
+        this.backlogForm.contents != "" ||
+        this.backlogForm.datetime ||
+        this.classvalue != "#icon-yuandian"
       ) {
         this.$confirm("当前有正在编辑的内容, 是否保存草稿?", "提示", {
           confirmButtonText: "确定",
@@ -163,9 +170,10 @@ export default {
               type: "info",
               message: "已取消",
             });
-            this.textareathing = ''
-            this.thingdate = ''
-            this.colorvalue = '#icon-yuandian'
+            // 清空
+            this.backlogForm.contents = ''
+            this.backlogForm.datetime = ''
+            this.classvalue = '#icon-yuandian'
             this.isnew = false
           });
       } else {
@@ -173,7 +181,25 @@ export default {
       }
     },
     // 确定
-    newItemConfirm() {},
+    async newItemConfirm() {
+        console.log(this.backlogForm)
+        const { data:res } = await this.$http.post('/backlog/insertbacklog',Qs.stringify(this.backlogForm))
+        console.log(res)
+        if(res.code == 200){
+            this.$message({
+                message: '添加待办事件成功',
+                type: 'success'
+            })
+            this.backlogForm.contents = ''
+            this.backlogForm.datetime = ''
+            this.classvalue = '#icon-yuandian'
+            this.isnew = false
+        }else {
+            this.$message.error('添加待办失败，请重试')
+            this.isnew = false
+        }
+
+    },
   },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <!-- <button @click="btn">测试</button> -->
+    <!-- <button @click="btn">测试11</button> -->
     <Menu></Menu>
     <Menutop></Menutop>
     <Backlog></Backlog>
@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     async btn() {
-      const { data: res } = await this.$http.post("test/test");
+      const { data: res } = await this.$http.post("backlog/insertbacklog");
       console.log(res);
     },
   },
